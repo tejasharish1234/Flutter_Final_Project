@@ -1,6 +1,6 @@
 class CountryModel {
   String capitalcity = '';
-  String flag = '';
+  String flagpng = '';
   String timezone = '';
   String population = '';
   String continent = '';
