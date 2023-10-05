@@ -21,6 +21,7 @@ class CountryController {
       countryModel.mapslink = data[0]['maps']['googleMaps'];
       countryModel.population = (data[0]['population']).toString();
       countryModel.timezone = data[0]['timezones'][0];
+      countryModel.language = data[0]['languages'];
     } catch (e) {
       print('e');
     }

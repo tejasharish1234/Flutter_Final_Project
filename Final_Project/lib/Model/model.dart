@@ -7,6 +7,6 @@ class CountryModel {
   String region = '';
   String subregion = '';
   String currency = '';
-  String language = '';
+  Map language = {};
   String mapslink = '';
 }
