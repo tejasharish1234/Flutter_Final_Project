@@ -11,14 +11,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CountryController controller = CountryController();
+    final CountryController countrycontroller = CountryController();
     return MaterialApp(
       title: 'OpenWeatherAPI',
       theme: ThemeData(
         primarySwatch: Colors.teal,
         useMaterial3: true,
       ),
-      home: CountryScreen(controller: controller),
+      home: CountryScreen(controller: countrycontroller),
     );
   }
 }
