@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final CountryController countrycontroller = CountryController();
     return MaterialApp(
-      title: 'OpenWeatherAPI',
+      title: 'RESTCountriesAPI',
       theme: ThemeData(
         primarySwatch: Colors.teal,
         useMaterial3: true,

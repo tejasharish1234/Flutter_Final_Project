@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c3db18a-a544-4147-aa9e-18bea021e111" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Flutter_Final_Project-main/Final_Project/lib/View/view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Flutter_Final_Project-main/Final_Project/lib/View/view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final_Project/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Final_Project/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +29,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
+    "com.android.tools.idea.devicemanager.tab": "Physical",
     "dart.analysis.tool.window.visible": "false",
+    "last_opened_file_path": "C:/Users/Tejas/GitHub/Flutter_Final_Project",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "show.migrate.to.gradle.popup": "false"
   }
