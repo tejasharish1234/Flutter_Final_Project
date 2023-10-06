@@ -38,7 +38,7 @@ class _CountryScreenState extends State<CountryScreen> {
         padding: const EdgeInsets.all(16.0),
         decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/bg_1.jpg'),
+              image: AssetImage('assets/images/bg_4.avif'),
               fit: BoxFit.fitHeight,
             ),
             color: Colors.black),
@@ -144,7 +144,8 @@ class CountryDetailsScreenState extends State<CountryDetailsScreen> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/bg_1.jpg'), fit: BoxFit.fill),
+                image: AssetImage('assets/images/bg_4.avif'),
+                fit: BoxFit.fitHeight),
             color: Colors.black),
         child: SingleChildScrollView(
           child: FutureBuilder<void>(
