@@ -11,9 +11,9 @@ class CountryController {
       final url = Uri.parse('https://restcountries.com/v3.1/name/$country');
       final response = await http.get(url);
       final data = jsonDecode(response.body);
+      countryModel.officialname = data[0]['name']['official'];
       countryModel.capitalcity = data[0]['capital'][0];
       countryModel.continent = data[0]['continents'][0];
-      countryModel.region = data[0]['region'];
       countryModel.subregion = data[0]['subregion'];
       // countryModel.currency =
       //     "${data[0]['currencies']['INR']['name']}: ${data[0]['currencies']['INR']['symbol']}";
@@ -22,12 +22,11 @@ class CountryController {
         countryModel.currency = i.value['name'];
       }
       countryModel.flagpng = data[0]['flags']['png'];
-      countryModel.mapslink = data[0]['maps']['googleMaps'];
       countryModel.population = (data[0]['population']).toString();
       countryModel.timezone = data[0]['timezones'][0];
       Map language = data[0]['languages'];
       for (var i in language.entries) {
-        countryModel.language += '${i.value} \n';
+        countryModel.language += '${i.value}\n';
       }
     } catch (e) {
       print('e');
