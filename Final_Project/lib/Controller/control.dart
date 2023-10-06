@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class CountryController {
   final CountryModel countryModel = CountryModel();
 
-  Future<void> fetchCountryData(String country) async {
+  Future<String> fetchCountryData(String country) async {
     try {
       final url = Uri.parse('https://restcountries.com/v3.1/name/$country');
       final response = await http.get(url);
@@ -28,8 +28,9 @@ class CountryController {
       for (var i in language.entries) {
         countryModel.language += '${i.value}\n';
       }
+      return 'true';
     } catch (e) {
-      print('e');
+      return 'false';
     }
   }
 }

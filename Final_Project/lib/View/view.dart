@@ -12,6 +12,7 @@ class CountryScreen extends StatefulWidget {
 
 class _CountryScreenState extends State<CountryScreen> {
   final TextEditingController countrycontroller = TextEditingController();
+  bool isFetchingData = false;
 
   void _navigateToDetails() {
     Navigator.of(context).push(
@@ -21,6 +22,7 @@ class _CountryScreenState extends State<CountryScreen> {
         ),
       ),
     );
+    isFetchingData = false;
   }
 
   @override
@@ -30,7 +32,7 @@ class _CountryScreenState extends State<CountryScreen> {
         title: Text('Country Information App',
             style: GoogleFonts.lora(fontWeight: FontWeight.bold, fontSize: 28)),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(194, 98, 53, 6),
+        backgroundColor: const Color.fromARGB(194, 98, 53, 6),
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
@@ -41,34 +43,62 @@ class _CountryScreenState extends State<CountryScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            countrycontroller.text.isNotEmpty &&
+                    widget.controller.countryModel.officialname.isEmpty &&
+                    !isFetchingData
+                ? Column(
+                    children: [
+                      Text(
+                          'Country not found. Please enter a valid country name.',
+                          style: GoogleFonts.lora(
+                            color: const Color.fromARGB(255, 255, 0,
+                                0), // Customize the color as you like.
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      const SizedBox(height: 30.0)
+                    ],
+                  )
+                : Container(),
             Padding(
-                padding: EdgeInsets.fromLTRB(400, 0, 400, 0),
+                padding: const EdgeInsets.fromLTRB(400, 0, 400, 0),
                 child: TextField(
                   controller: countrycontroller,
                   style: GoogleFonts.lora(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Enter Country Name',
                     labelStyle: GoogleFonts.lora(color: Colors.white),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
                 )),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () async {
-                final country = countrycontroller.text.trim();
-                if (country.isNotEmpty) {
-                  await widget.controller.fetchCountryData(country);
-                  _navigateToDetails();
-                }
-              },
+              onPressed: isFetchingData
+                  ? null
+                  : () async {
+                      final country = countrycontroller.text.trim();
+                      if (country.isNotEmpty) {
+                        isFetchingData = true;
+
+                        String works =
+                            (await widget.controller.fetchCountryData(country))
+                                .toString();
+                        if (works == 'true') {
+                          _navigateToDetails();
+                        } else {
+                          isFetchingData = false;
+                        }
+                      }
+                      setState(() {});
+                    },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color.fromARGB(15, 125, 125, 125),
+                backgroundColor: const Color.fromARGB(15, 125, 125, 125),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
               ),
@@ -89,10 +119,10 @@ class CountryDetailsScreen extends StatefulWidget {
   const CountryDetailsScreen({super.key, required this.controller});
 
   @override
-  _CountryDetailsScreenState createState() => _CountryDetailsScreenState();
+  CountryDetailsScreenState createState() => CountryDetailsScreenState();
 }
 
-class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
+class CountryDetailsScreenState extends State<CountryDetailsScreen> {
   Future<void>? countryData; // Change the type to Future<void>?
 
   @override
@@ -107,7 +137,7 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
         title: Text('Country Info',
             style: GoogleFonts.lora(fontWeight: FontWeight.bold, fontSize: 28)),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(194, 98, 53, 6),
+        backgroundColor: const Color.fromARGB(194, 98, 53, 6),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -116,7 +146,6 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
             color: Colors.black),
         child: SingleChildScrollView(
           child: FutureBuilder<void>(
-            // Change the type to Future<void>
             future: countryData,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -125,7 +154,7 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                 );
               } else if (snapshot.hasError) {
                 return Center(
-                  child: Text('You idiot /n Error: ${snapshot.error}'),
+                  child: Text('Error: ${snapshot.error}'),
                 );
               } else {
                 final countryModel = widget.controller.countryModel;
@@ -149,7 +178,7 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 40),
                         _InfoTile(
                           title: 'Official Name',
                           value: countryModel.officialname,
@@ -178,10 +207,6 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                           title: 'Time Zone',
                           value: countryModel.timezone,
                         ),
-                        // _InfoTile(
-                        //   title: 'Maps Link',
-                        //   value: countryModel.mapslink,
-                        // ),
                         const SizedBox(height: 20),
                         Align(
                           alignment: Alignment.bottomRight,
@@ -189,8 +214,11 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                               countryModel.language = '';
+                              countryModel.officialname = '';
                             },
-                            child: const Text('Back'),
+                            child: Text('Back',
+                                style: GoogleFonts.lora(
+                                    fontWeight: FontWeight.bold, fontSize: 18)),
                           ),
                         ),
                       ],
@@ -219,7 +247,7 @@ class _InfoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color.fromARGB(100, 98, 53, 6),
+          color: const Color.fromARGB(100, 98, 53, 6),
           borderRadius: BorderRadius.circular(20.0)),
       width: 400,
       margin: const EdgeInsets.symmetric(vertical: 8.0), // Vertical spacing
@@ -228,7 +256,7 @@ class _InfoTile extends StatelessWidget {
           title,
           textAlign: TextAlign.center,
           style: GoogleFonts.ebGaramond(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 255, 255, 255),
             fontSize: 24,
             fontWeight: FontWeight.w900,
           ),
@@ -237,7 +265,7 @@ class _InfoTile extends StatelessWidget {
           value,
           textAlign: TextAlign.center,
           style: GoogleFonts.ebGaramond(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 255, 255, 255),
             fontSize: 20,
           ),
         ),
