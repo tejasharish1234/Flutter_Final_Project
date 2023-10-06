@@ -38,7 +38,9 @@ class _CountryScreenState extends State<CountryScreen> {
         padding: const EdgeInsets.all(16.0),
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/bg_1.jpg'), fit: BoxFit.fill),
+              image: AssetImage('assets/images/bg_1.jpg'),
+              fit: BoxFit.fitHeight,
+            ),
             color: Colors.black),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +63,7 @@ class _CountryScreenState extends State<CountryScreen> {
                   )
                 : Container(),
             Padding(
-                padding: const EdgeInsets.fromLTRB(400, 0, 400, 0),
+                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                 child: TextField(
                   controller: countrycontroller,
                   style: GoogleFonts.lora(color: Colors.white),
