@@ -15,8 +15,6 @@ class CountryController {
       countryModel.capitalcity = data[0]['capital'][0];
       countryModel.continent = data[0]['continents'][0];
       countryModel.subregion = data[0]['subregion'];
-      // countryModel.currency =
-      //     "${data[0]['currencies']['INR']['name']}: ${data[0]['currencies']['INR']['symbol']}";
       Map x = data[0]['currencies'];
       for (var i in x.entries) {
         countryModel.currency = i.value['name'];
