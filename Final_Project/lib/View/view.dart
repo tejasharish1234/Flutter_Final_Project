@@ -30,9 +30,12 @@ class _CountryScreenState extends State<CountryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Country Information App',
-            style: GoogleFonts.lora(fontWeight: FontWeight.bold, fontSize: 28)),
+            style: GoogleFonts.lora(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+                color: Colors.white)),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(194, 98, 53, 6),
+        backgroundColor: const Color.fromARGB(230, 0, 0, 0),
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
@@ -137,9 +140,12 @@ class CountryDetailsScreenState extends State<CountryDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Country Info',
-            style: GoogleFonts.lora(fontWeight: FontWeight.bold, fontSize: 28)),
+            style: GoogleFonts.lora(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+                color: Colors.white)),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(194, 98, 53, 6),
+        backgroundColor: const Color.fromARGB(230, 0, 0, 0),
       ),
       body: Container(
         decoration: const BoxDecoration(
